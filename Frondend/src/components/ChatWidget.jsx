@@ -15,7 +15,6 @@ const ChatWidget = () => {
     const [supportId, setSupportId] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    // Fetch support contact on mount
     useEffect(() => {
         const fetchSupport = async () => {
             try {
@@ -31,11 +30,9 @@ const ChatWidget = () => {
         fetchSupport();
     }, []);
 
-    // Fetch messages and join chat room
     useEffect(() => {
         if (!supportId || !isOpen || !user) return;
 
-        // Join my own room
         socket.emit("join_chat", user._id);
 
         const fetchHistory = async () => {
@@ -53,7 +50,6 @@ const ChatWidget = () => {
         fetchHistory();
     }, [supportId, isOpen, user, socket]);
 
-    // Real-time listener
     useEffect(() => {
         if (!socket) return;
 
@@ -69,7 +65,6 @@ const ChatWidget = () => {
         return () => socket.off("receive_message");
     }, [socket, supportId, user]);
 
-    // Auto-scroll
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages, isOpen]);
@@ -94,7 +89,6 @@ const ChatWidget = () => {
 
     return (
         <div className="fixed bottom-6 right-6 z-50">
-            {/* Toggle Button */}
             {!isOpen && (
                 <button
                     onClick={() => setIsOpen(true)}
@@ -104,10 +98,8 @@ const ChatWidget = () => {
                 </button>
             )}
 
-            {/* Chat Window */}
             {isOpen && (
-                <div className="bg-white w-80 sm:w-96 rounded-2xl shadow-2xl border border-gray-100 overflow-hidden flex flex-col h-[500px]">
-                    {/* Header */}
+                <div className="bg-white w-80 sm:w-96 rounded-2xl shadow-2xl border border-gray-100 overflow-hidden flex flex-col h-125">
                     <div className="bg-emerald-600 p-4 text-white flex justify-between items-center shadow-sm">
                         <div className="flex items-center gap-2">
                             <span className="text-xl">🤖</span>
@@ -124,7 +116,6 @@ const ChatWidget = () => {
                         </button>
                     </div>
 
-                    {/* Messages */}
                     <div className="flex-1 p-4 overflow-y-auto bg-gray-50 space-y-3">
                         {loading ? (
                             <p className="text-center text-gray-400 text-xs mt-10">Loading chat...</p>
@@ -165,7 +156,6 @@ const ChatWidget = () => {
                         <div ref={scrollRef} />
                     </div>
 
-                    {/* Input */}
                     <form onSubmit={handleSend} className="p-3 bg-white border-t flex gap-2">
                         <input
                             type="text"

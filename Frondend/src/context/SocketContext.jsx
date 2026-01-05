@@ -9,14 +9,12 @@ export const SocketProvider = ({ children }) => {
     const [socket, setSocket] = useState(null);
 
     useEffect(() => {
-        // Initialize socket connection
         const newSocket = io("http://localhost:4000", {
             withCredentials: true,
         });
 
         setSocket(newSocket);
 
-        // Cleanup on unmount
         return () => {
             newSocket.disconnect();
         };
