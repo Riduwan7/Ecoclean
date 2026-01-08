@@ -1,4 +1,3 @@
-// src/components/Reviews/AddReview.jsx
 import React, { useState, useEffect } from "react";
 import { createReviewApi, getMyReviewApi } from "../../api/reviewApi";
 
@@ -10,14 +9,12 @@ const AddReview = () => {
   const [error, setError] = useState("");
   const [existingReview, setExistingReview] = useState(null);
 
-  // Check if user already submitted a review on mount
   useEffect(() => {
     const checkExisting = async () => {
       try {
         const res = await getMyReviewApi();
         if (res.data.success) setExistingReview(res.data.MyReview);
       } catch (err) {
-        // If 404, user hasn't reviewed yet, which is fine
         console.log("No existing review found.");
       }
     };

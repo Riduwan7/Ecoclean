@@ -19,7 +19,7 @@ const ChatWidget = () => {
         const fetchSupport = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const { data } = await axios.get("http://localhost:4000/api/messages/support", {
+                const { data } = await axios.get("https://ecocleanbackend-ddn2.onrender.com/api/messages/support", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setSupportId(data._id);

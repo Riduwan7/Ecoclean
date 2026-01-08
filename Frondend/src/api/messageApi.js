@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:4000/api/messages";
+const API_URL = "https://ecocleanbackend-ddn2.onrender.com/api/messages";
 
 export const sendMessageApi = async (data) => {
     const token = localStorage.getItem("token");

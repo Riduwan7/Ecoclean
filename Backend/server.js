@@ -1,72 +1,77 @@
-import express from "express"
+import express from "express";
 import cors from "cors";
-import connection from "./connection.js"
+import connection from "./connection.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
+import dotenv from "dotenv";
 
-import authRoutes from "./Routes/authRoutes.js"
-import pickupRoutes from "./Routes/pickupRoutes.js"
-import adminRoutes from "./Routes/adminRoutes.js"
-import staffRoutes from "./Routes/staffRoutes.js"
-import complaintRoutes from "./Routes/complaintRoutes.js"
-import reviewRoutes from "./Routes/reviewRoutes.js"
-import messageRoutes from "./Routes/messageRoutes.js"
+import authRoutes from "./Routes/authRoutes.js";
+import pickupRoutes from "./Routes/pickupRoutes.js";
+import adminRoutes from "./Routes/adminRoutes.js";
+import staffRoutes from "./Routes/staffRoutes.js";
+import complaintRoutes from "./Routes/complaintRoutes.js";
+import reviewRoutes from "./Routes/reviewRoutes.js";
+import messageRoutes from "./Routes/messageRoutes.js";
 
-import dotenv from "dotenv"
-dotenv.config()
+dotenv.config();
 
-const app = express()
+const app = express();
 const httpServer = createServer(app);
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://ecocleanfrontend.vercel.app"
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
+app.use(express.json({ limit: "50mb" }));
+
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:5173",
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: allowedOrigins,
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
 io.on("connection", (socket) => {
-  console.log(`⚡: ${socket.id} user just connected!`);
+  console.log(`⚡ Socket connected: ${socket.id}`);
 
   socket.on("join_chat", (userId) => {
     socket.join(userId);
-    console.log(`User ${userId} joined chat room`);
+    console.log(`👤 User joined room: ${userId}`);
   });
 
   socket.on("disconnect", () => {
-    console.log("🔥: A user disconnected");
+    console.log("🔥 Socket disconnected");
   });
 });
 
 app.set("io", io);
 
-app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-}));
+app.use("/api/auth", authRoutes);
+app.use("/api/pickups", pickupRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/staff", staffRoutes);
+app.use("/uploads", express.static("uploads"));
+app.use("/api/complaints", complaintRoutes);
+app.use("/api/reviews", reviewRoutes);
+app.use("/api/messages", messageRoutes);
 
-app.use(cors());
-
-app.use(express.json({ limit: "50mb" }))
-
-app.use("/api/auth", authRoutes)
-app.use("/api/pickups", pickupRoutes)
-app.use("/api/admin", adminRoutes)
-app.use("/api/staff", staffRoutes)
-app.use("/uploads", express.static("uploads"))
-app.use("/api/complaints", complaintRoutes)
-app.use("/api/reviews", reviewRoutes)
-app.use("/api/messages", messageRoutes)
+const PORT = process.env.PORT || 5000;
 
 connection()
   .then(() => {
-    httpServer.listen(process.env.PORT, () => {
-      console.log(`🚀 Server running at http://localhost:${process.env.PORT}`)
-    })
+    httpServer.listen(PORT, () => {
+      console.log(`🚀 ECOCLEAN Backend running on port ${PORT}`);
+    });
   })
   .catch((error) => {
-    console.error("❌ Server startup failed:", error)
-  })
+    console.error("❌ Server startup failed:", error);
+  });

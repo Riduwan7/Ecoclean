@@ -25,7 +25,6 @@ const StaffDashboard = () => {
   const loadPickups = async () => {
     const data = await getAssignedPickupsApi();
 
-    // detect new tasks
     if (pickups.length && data.length > pickups.length) {
       setNotifications(prev => [
         { msg: "New pickup assigned to you", id: Date.now() },
@@ -57,7 +56,6 @@ const StaffDashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50">
 
-      {/* NAVBAR */}
       <div className="bg-white shadow-sm border-b px-8 py-4 flex justify-between items-center">
 
         <div>
@@ -71,7 +69,6 @@ const StaffDashboard = () => {
 
         <div className="flex items-center gap-6">
 
-          {/* Notifications */}
           <div className="relative cursor-pointer">
             <span className="text-2xl">🔔</span>
             {unread > 0 && (
@@ -94,20 +91,17 @@ const StaffDashboard = () => {
         </div>
       </div>
 
-      {/* Notification Bar */}
       {notifications.length > 0 && (
         <div className="bg-yellow-50 border-b border-yellow-200 p-3 text-center text-yellow-700 text-sm">
           {notifications[0].msg}
         </div>
       )}
 
-      {/* BODY */}
       <div className="max-w-6xl mx-auto p-8">
         <h2 className="text-2xl font-bold mb-6">
           Today's Collection Summary
         </h2>
 
-        {/* CARDS */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-10">
           <Card label="Total Tasks" value={stats.total} color="emerald" />
           <Card label="Assigned" value={stats.assigned} color="yellow" />
@@ -116,7 +110,6 @@ const StaffDashboard = () => {
           <Card label="Completed" value={stats.completed} color="green" />
         </div>
 
-        {/* RECENT TABLE */}
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-lg font-bold">Recent Assignments</h3>
 
@@ -128,7 +121,7 @@ const StaffDashboard = () => {
           </button>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm overflow-hidden border">
+        <div className="bg-white rounded-2xl shadow-sm overflow-x-auto border">
           <table className="w-full text-left text-sm">
             <thead className="bg-gray-50 text-gray-400 uppercase text-[10px] font-bold">
               <tr>

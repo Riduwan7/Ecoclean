@@ -18,7 +18,7 @@ const AdminChat = () => {
     const fetchConversations = async () => {
         try {
             const token = localStorage.getItem("token");
-            const { data } = await axios.get("http://localhost:4000/api/messages/conversations", {
+            const { data } = await axios.get("https://ecocleanbackend-ddn2.onrender.com/api/messages/conversations", {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setConversations(data);
@@ -115,7 +115,7 @@ const AdminChat = () => {
 
     return (
         <div className="flex h-[calc(100vh-64px)] bg-gray-100">
-            <div className="w-1/3 bg-white border-r overflow-y-auto">
+            <div className={`w-full md:w-1/3 bg-white border-r overflow-y-auto ${selectedUser ? "hidden md:block" : "block"}`}>
                 <div className="p-4 border-b bg-gray-50">
                     <h2 className="text-lg font-bold text-gray-700">Messages</h2>
                 </div>
@@ -143,10 +143,16 @@ const AdminChat = () => {
                 </div>
             </div>
 
-            <div className="w-2/3 flex flex-col">
+            <div className={`w-full md:w-2/3 flex-col ${selectedUser ? "flex" : "hidden md:flex"}`}>
                 {selectedUser ? (
                     <>
                         <div className="p-4 bg-white border-b shadow-sm flex items-center gap-3">
+                            <button
+                                onClick={() => setSelectedUser(null)}
+                                className="md:hidden mr-2 text-gray-500 hover:text-emerald-600"
+                            >
+                                ← Back
+                            </button>
                             <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-700 font-bold">
                                 {selectedUser.name.charAt(0)}
                             </div>

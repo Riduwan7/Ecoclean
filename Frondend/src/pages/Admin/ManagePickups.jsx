@@ -27,7 +27,7 @@ const ManagePickups = () => {
     try {
       await assignPickupApi(pickupId, staffId);
       alert("Assigned successfully!");
-      loadData(); // Refresh list
+      loadData(); 
     } catch (err) {
       alert("Error assigning staff");
     }

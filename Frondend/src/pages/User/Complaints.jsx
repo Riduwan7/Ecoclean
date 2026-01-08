@@ -3,12 +3,12 @@ import { createComplaintApi, getMyComplaintsApi } from "../../api/compliantApi.j
 
 const statusStyles = {
   pending: "bg-yellow-100 text-yellow-700",
-  "in-progress": "bg-blue-100 text-blue-700", // Matches your backend enum
+  "in-progress": "bg-blue-100 text-blue-700", 
   resolved: "bg-green-100 text-green-700",
 };
 
 const Complaints = () => {
-  const [subject, setSubject] = useState(""); // Changed from title to subject
+  const [subject, setSubject] = useState(""); 
   const [description, setDescription] = useState("");
   const [complaints, setComplaints] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -35,7 +35,6 @@ const Complaints = () => {
     setLoading(true);
 
     try {
-      // Sending 'subject' to match backend schema
       await createComplaintApi({ subject, description });
       setSubject("");
       setDescription("");
@@ -53,7 +52,6 @@ const Complaints = () => {
       <div className="max-w-6xl mx-auto">
         <h2 className="text-2xl font-bold text-emerald-700 mb-6">📝 My Complaints</h2>
 
-        {/* Complaint Form */}
         <div className="bg-white rounded-2xl shadow-md p-6 mb-10 border border-gray-100">
           <h3 className="text-lg font-semibold text-gray-800 mb-4">Raise a Complaint</h3>
 
@@ -89,7 +87,6 @@ const Complaints = () => {
           </form>
         </div>
 
-        {/* Complaints Table */}
         <div className="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">

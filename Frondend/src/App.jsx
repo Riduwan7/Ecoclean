@@ -10,6 +10,9 @@ import Sidebar from "./components/Sidebar.jsx";
 import Home from "./Home/home.jsx";
 import Login from "./pages/Auth/login.jsx";
 import Register from "./pages/Auth/register.jsx";
+import AboutUs from "./Home/AboutUs.jsx";
+import Features from "./Home/Features.jsx";
+import Contact from "./Home/ContactUs.jsx";
 
 import UserDashboard from "./pages/User/UserDashboard.jsx";
 import RequestPickup from "./pages/User/RequestPickup.jsx";
@@ -38,8 +41,9 @@ function App() {
             <Route path="/" element={<>  <Home /> </>} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-
-            {/* <Route element={<ProtectedRoute />}> */}
+            <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/features" element={<Features />} />
+            <Route path="/contact" element={<Contact />} />
 
             <Route element={<ProtectedRoute role="user" />}>
               <Route path="/user/dashboard" element={<> <UserDashboard /> <Footer /> </>} />

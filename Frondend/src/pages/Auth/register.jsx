@@ -50,7 +50,7 @@ const Register = () => {
 
       <div className="hidden lg:block relative">
         <img
-          src="/public/EcoClean-Homepage.png"  
+          src="/EcoClean-Homepage.png"
           alt="EcoClean"
           className="w-full h-full object-cover"
         />

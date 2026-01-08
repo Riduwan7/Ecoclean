@@ -42,6 +42,10 @@ const Home = () => {
             ECOCLEAN – Smart Waste Collection Optimization System
           </h1>
 
+          <h3 className="text-2xl sm:text-3xl md:text-3xl font-bold mb-4 leading-tight">
+            created by Riduwan
+          </h3>
+
           <p className="text-lg sm:text-xl mb-10 opacity-90 font-bold">
             Revolutionizing waste management for a cleaner, greener city with our smart optimization system. **We use cutting-edge 
             IoT sensors and AI-driven routing to achieve up to 30% savings in collection costs, drastically reducing fuel consumption 

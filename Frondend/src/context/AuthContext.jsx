@@ -10,7 +10,6 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [authLoading, setAuthLoading] = useState(false);
 
-  // Load profile if token exists
   useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem("token");

@@ -77,7 +77,6 @@ const RequestPickup = () => {
 
         <form onSubmit={handleSubmit} className="space-y-5">
 
-          {/* Pickup Type */}
           <div>
             <label className="block text-sm font-medium mb-1">
               Pickup Type
@@ -94,7 +93,6 @@ const RequestPickup = () => {
             </select>
           </div>
 
-          {/* Waste Items */}
           <div>
             <label className="block text-sm font-medium mb-2">
               Waste Items
@@ -150,7 +148,6 @@ const RequestPickup = () => {
             </button>
           </div>
 
-          {/* Address */}
           <div>
             <label className="block text-sm font-medium mb-1">
               Pickup Address
@@ -164,7 +161,6 @@ const RequestPickup = () => {
             />
           </div>
 
-          {/* Date */}
           <div>
             <label className="block text-sm font-medium mb-1">
               Scheduled Date
@@ -178,7 +174,6 @@ const RequestPickup = () => {
             />
           </div>
 
-          {/* Notes */}
           <div>
             <label className="block text-sm font-medium mb-1">
               Notes (Optional)
@@ -191,7 +186,6 @@ const RequestPickup = () => {
             />
           </div>
 
-          {/* Submit */}
           <button
             type="submit"
             disabled={loading}
